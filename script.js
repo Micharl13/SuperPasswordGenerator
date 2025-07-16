@@ -14,9 +14,9 @@ const strengthEl = document.getElementById("strength");
 const entropyEl = document.getElementById("entropy");
 const historySelect = document.getElementById("historySelect");
 const themeSelect = document.getElementById("themeSelect");
-const darkModeToggle = document.getElementById("darkModeToggle");
 const copiedPopup = document.getElementById("copiedPopup");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const modeSelect = document.getElementById("modeSelect");
 
 const HISTORY_KEY = "passwordHistory";
 let passwordVisible = false;
@@ -89,13 +89,26 @@ downloadBtn.addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
+themeSelect.addEventListener("change", () => {
+  const selectedTheme = themeSelect.value;
+  const mode = modeSelect.value;
+  localStorage.setItem("themeName", selectedTheme);
+  applyTheme(selectedTheme, mode);
+});
+
+modeSelect.addEventListener("change", () => {
+  const selectedMode = modeSelect.value;
+  localStorage.setItem("themeMode", selectedMode);
+  applyTheme(themeSelect.value, selectedMode);
+});
+
 historySelect.addEventListener("change", () => {
   const val = historySelect.value;
   if (val) resultEl.value = val;
 });
 
 clearHistoryBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to clear your password history?")) {
+  if (confirm("Clear all saved passwords?")) {
     localStorage.removeItem(HISTORY_KEY);
     updateHistorySelect();
   }
@@ -119,7 +132,7 @@ function showStrength(password) {
   if (score <= 2) {
     strengthEl.textContent = "Strength: Weak";
     strengthEl.classList.add("weak");
-  } else if (score === 3 || score === 4) {
+  } else if (score <= 4) {
     strengthEl.textContent = "Strength: Medium";
     strengthEl.classList.add("medium");
   } else {
@@ -153,42 +166,22 @@ function updateHistorySelect() {
   });
 }
 
-// THEME SYSTEM
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-const savedTheme = localStorage.getItem("theme") || "default";
-const savedMode = localStorage.getItem("themeMode") || (prefersDark ? "dark" : "light");
-
-themeSelect.value = savedTheme;
-darkModeToggle.checked = savedMode === "dark";
-applyTheme(savedTheme, savedMode);
-
-themeSelect.addEventListener("change", () => {
-  const theme = themeSelect.value;
-  const mode = darkModeToggle.checked ? "dark" : "light";
-  localStorage.setItem("theme", theme);
-  applyTheme(theme, mode);
-});
-
-darkModeToggle.addEventListener("change", () => {
-  const theme = themeSelect.value;
-  const mode = darkModeToggle.checked ? "dark" : "light";
-  localStorage.setItem("themeMode", mode);
-  applyTheme(theme, mode);
-});
-
-if (!localStorage.getItem("themeMode")) {
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-    const mode = e.matches ? "dark" : "light";
-    darkModeToggle.checked = mode === "dark";
-    applyTheme(themeSelect.value, mode);
-  });
-}
-
 function applyTheme(theme, mode) {
-  document.body.className = theme;
-  if (mode === "light") {
-    document.body.classList.add("light");
+  let finalMode = mode;
+  if (mode === "system") {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    finalMode = prefersDark ? "dark" : "light";
   }
+  document.body.className = `${theme} ${finalMode}`;
 }
 
-updateHistorySelect();
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("themeName") || "default";
+  const savedMode = localStorage.getItem("themeMode") || "system";
+
+  themeSelect.value = savedTheme;
+  modeSelect.value = savedMode;
+
+  applyTheme(savedTheme, savedMode);
+  updateHistorySelect();
+});
