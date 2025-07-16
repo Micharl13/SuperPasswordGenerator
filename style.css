@@ -163,55 +163,64 @@ input[type="checkbox"] {
   }
 }
 
-body.sunset {
-  --bg: #f7d8ba;
-  --container-bg: #ffedd8;
-  --text: #4a2c2a;
-  --accent: #ff7a5a;
-}
+/* ===== Theme + Mode Combinations ===== */
 
-body.matrix {
-  --bg: #000000;
-  --container-bg: #002200;
-  --text: #00ff00;
-  --accent: #00ff00;
-}
-
-body.hacker {
-  --bg: #0f0f0f;
-  --container-bg: #1a1a1a;
-  --text: #00ff00;
-  --accent: #39ff14;
-}
-
-/* Light mode base */
-body.light {
+/* Default */
+body.default.light {
   --bg: #f0f0f0;
   --container-bg: #ffffff;
   --text: #222;
-  --accent: #0077cc;
-  --danger: #cc0000;
-  --warn: #ffaa00;
-  --success: #00aa66;
+  --accent: #00aac8;
 }
 
-body.light.matrix {
-  --bg: #e6ffe6;
-  --container-bg: #ccffcc;
-  --text: #006600;
-  --accent: #00aa00;
+body.default.dark {
+  --bg: #121212;
+  --container-bg: #1a1a1a;
+  --text: #eeeeee;
+  --accent: #00ffc8;
 }
 
-body.light.sunset {
+/* Sunset */
+body.sunset.light {
   --bg: #fff4e6;
   --container-bg: #ffe3d6;
   --text: #663300;
   --accent: #ff8855;
 }
 
-body.light.hacker {
-  --bg: #f0fff0;
-  --container-bg: #e0ffe0;
-  --text: #007700;
-  --accent: #22dd66;
+body.sunset.dark {
+  --bg: #f7d8ba;
+  --container-bg: #ffedd8;
+  --text: #4a2c2a;
+  --accent: #ff7a5a;
+}
+
+/* Matrix */
+body.matrix.light {
+  --bg: #e0ffe0;
+  --container-bg: #ccffcc;
+  --text: #003300;
+  --accent: #00cc00;
+}
+
+body.matrix.dark {
+  --bg: #000000;
+  --container-bg: #002200;
+  --text: #00ff00;
+  --accent: #00ff00;
+}
+
+/* Hacker */
+body.hacker.light {
+  --bg: #e0ffe0;
+  --container-bg: #ccffcc;
+  --text: #003300;
+  --accent: #33cc33;
+}
+
+body.hacker.dark {
+  --bg: #0f0f0f;
+  --container-bg: #1a1a1a;
+  --text: #00ff00;
+  --accent: #39ff14;
 }
