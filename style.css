@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+:root {
+  --bg: #121212;
+  --container-bg: #1a1a1a;
+  --text: #eeeeee;
+  --accent: #00ffc8;
+  --danger: #ff4c4c;
+  --warn: #ffb347;
+  --success: #00ff88;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-size: cover;
+  transition: background 0.3s ease;
+}
+
+.container {
+  background-color: var(--container-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.2);
+  max-width: 600px;
+  width: 90%;
+}
+
+h2 {
+  text-align: center;
+  color: var(--accent);
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background-color: #222;
+  color: var(--accent);
+  width: 100%;
+  margin-top: 4px;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+.button-row button {
+  padding: 10px 16px;
+  margin: 10px 5px 0 0;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--accent);
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-row button:hover {
+  background-color: #0ff;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.output {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#result {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 1.1em;
+  background-color: #1f1f1f;
+  border: 1px dashed var(--accent);
+  border-radius: 6px;
+  color: var(--success);
+}
+
+#toggleVisibility {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+#copiedPopup {
+  display: none;
+  color: var(--success);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.strength {
+  margin-top: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.strength.weak {
+  color: var(--danger);
+}
+
+.strength.medium {
+  color: var(--warn);
+}
+
+.strength.strong {
+  color: var(--success);
+}
+
+#entropy {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.9em;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.history-controls {
+  margin-top: 20px;
+}
+
+#clearHistoryBtn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: var(--danger);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#clearHistoryBtn:hover {
+  background-color: #ff1a1a;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+}
+
+body.sunset {
+  --bg: #f7d8ba;
+  --container-bg: #ffedd8;
+  --text: #4a2c2a;
+  --accent: #ff7a5a;
+}
+
+body.matrix {
+  --bg: #000000;
+  --container-bg: #002200;
+  --text: #00ff00;
+  --accent: #00ff00;
+}
+
+body.hacker {
+  --bg: #0f0f0f;
+  --container-bg: #1a1a1a;
+  --text: #00ff00;
+  --accent: #39ff14;
+}
+
+/* Light mode base */
+body.light {
+  --bg: #f0f0f0;
+  --container-bg: #ffffff;
+  --text: #222;
+  --accent: #0077cc;
+  --danger: #cc0000;
+  --warn: #ffaa00;
+  --success: #00aa66;
+}
+
+body.light.matrix {
+  --bg: #e6ffe6;
+  --container-bg: #ccffcc;
+  --text: #006600;
+  --accent: #00aa00;
+}
+
+body.light.sunset {
+  --bg: #fff4e6;
+  --container-bg: #ffe3d6;
+  --text: #663300;
+  --accent: #ff8855;
+}
+
+body.light.hacker {
+  --bg: #f0fff0;
+  --container-bg: #e0ffe0;
+  --text: #007700;
+  --accent: #22dd66;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Password Generator</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <label>Mode:
+  <select id="modeSelect">
+    <option value="system">System</option>
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+</label>
+
+  <div class="container">
+    <h2>Super Password Generator</h2>
+
+    <label>Password Length:
+      <input type="number" id="length" min="4" max="128" value="16" />
+    </label>
+
+    <label><input type="checkbox" id="uppercase" checked /> Include Uppercase</label>
+    <label><input type="checkbox" id="lowercase" checked /> Include Lowercase</label>
+    <label><input type="checkbox" id="digits" checked /> Include Digits</label>
+    <label><input type="checkbox" id="symbols" checked /> Include Symbols</label>
+    <label><input type="checkbox" id="excludeSimilar" /> Exclude Similar Characters</label>
+
+    <label>Custom Characters (optional):
+      <input type="text" id="customChars" placeholder="e.g. @#%" />
+    </label>
+
+    <div class="button-row">
+      <button id="generateBtn">Generate Password</button>
+      <button id="copyBtn">Copy</button>
+      <button id="downloadBtn">Download .txt</button>
+    </div>
+
+    <div class="output">
+      <input type="text" id="result" readonly />
+      <button id="toggleVisibility">👁️</button>
+    </div>
+
+    <div id="copiedPopup">Copied!</div>
+    <div id="strength" class="strength"></div>
+    <div id="entropy"></div>
+
+    <div class="history-controls">
+      <label for="historySelect">Previous Passwords:</label>
+      <select id="historySelect">
+        <option value="">--None--</option>
+      </select>
+      <button id="clearHistoryBtn">Clear History</button>
+    </div>
+
+    <label>Theme:
+      <select id="themeSelect">
+        <option value="default">🌈 Default</option>
+        <option value="matrix">🟢 Matrix</option>
+        <option value="sunset">🌇 Sunset</option>
+        <option value="hacker">💻 Hacker Green</option>
+      </select>
+    </label>
+  </div>
+</body>
+</html>
