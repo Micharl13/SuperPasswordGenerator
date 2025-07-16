@@ -14,9 +14,9 @@ const strengthEl = document.getElementById("strength");
 const entropyEl = document.getElementById("entropy");
 const historySelect = document.getElementById("historySelect");
 const themeSelect = document.getElementById("themeSelect");
+const modeSelect = document.getElementById("modeSelect");
 const copiedPopup = document.getElementById("copiedPopup");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
-const modeSelect = document.getElementById("modeSelect");
 
 const HISTORY_KEY = "passwordHistory";
 let passwordVisible = false;
@@ -29,6 +29,7 @@ const CHAR_SETS = {
   similar: /[ilLI|10Oo]/g,
 };
 
+// Generate password
 generateBtn.addEventListener("click", () => {
   const length = parseInt(lengthEl.value);
   const hasLower = lowercaseEl.checked;
@@ -91,15 +92,16 @@ downloadBtn.addEventListener("click", () => {
 
 themeSelect.addEventListener("change", () => {
   const selectedTheme = themeSelect.value;
-  const mode = modeSelect.value;
+  const selectedMode = modeSelect.value;
   localStorage.setItem("themeName", selectedTheme);
-  applyTheme(selectedTheme, mode);
+  applyTheme(selectedTheme, selectedMode);
 });
 
 modeSelect.addEventListener("change", () => {
+  const selectedTheme = themeSelect.value;
   const selectedMode = modeSelect.value;
-  localStorage.setItem("themeMode", selectedMode);
-  applyTheme(themeSelect.value, selectedMode);
+  localStorage.setItem("modeName", selectedMode);
+  applyTheme(selectedTheme, selectedMode);
 });
 
 historySelect.addEventListener("change", () => {
@@ -108,7 +110,7 @@ historySelect.addEventListener("change", () => {
 });
 
 clearHistoryBtn.addEventListener("click", () => {
-  if (confirm("Clear all saved passwords?")) {
+  if (confirm("Clear password history?")) {
     localStorage.removeItem(HISTORY_KEY);
     updateHistorySelect();
   }
@@ -121,12 +123,7 @@ function showStrength(password) {
   const hasSymbol = /[^a-zA-Z0-9]/.test(password);
   const length = password.length;
 
-  let score = 0;
-  if (hasLower) score++;
-  if (hasUpper) score++;
-  if (hasDigit) score++;
-  if (hasSymbol) score++;
-  if (length >= 12) score++;
+  let score = hasLower + hasUpper + hasDigit + hasSymbol + (length >= 12 ? 1 : 0);
 
   strengthEl.className = "strength";
   if (score <= 2) {
@@ -167,21 +164,18 @@ function updateHistorySelect() {
 }
 
 function applyTheme(theme, mode) {
-  let finalMode = mode;
+  let appliedMode = mode;
   if (mode === "system") {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    finalMode = prefersDark ? "dark" : "light";
+    appliedMode = prefersDark ? "dark" : "light";
   }
-  document.body.className = `${theme} ${finalMode}`;
+  document.body.className = `${theme} ${appliedMode}`;
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("themeName") || "default";
-  const savedMode = localStorage.getItem("themeMode") || "system";
-
-  themeSelect.value = savedTheme;
-  modeSelect.value = savedMode;
-
-  applyTheme(savedTheme, savedMode);
-  updateHistorySelect();
-});
+// Restore saved theme/mode
+const savedTheme = localStorage.getItem("themeName") || "default";
+const savedMode = localStorage.getItem("modeName") || "dark";
+themeSelect.value = savedTheme;
+modeSelect.value = savedMode;
+applyTheme(savedTheme, savedMode);
+updateHistorySelect();
