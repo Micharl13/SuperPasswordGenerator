@@ -1,2 +1,2 @@
 # SuperPasswordGenerator
-A password generator test coded by ChatGPT.
+Coded by ChatGPT for a test.
